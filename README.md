@@ -62,8 +62,11 @@ You can utilize the online RDF/XML validator available at https://www.w3.org/RDF
 References
 ------------------
 rdflib library documentation: https://rdflib.readthedocs.io/en/stable/
+
 RDF/XML specification: https://www.w3.org/TR/rdf-syntax-grammar/
+
 DublinCore RDF/XML examples: https://www.dublincore.org/specifications/dublin-core/dcmes-xml/
+
 Qualified DC: https://www.dublincore.org/specifications/dublin-core/dcq-rdf-xml/
 
 Feel free to contribute to the project by submitting issues or pull requests on the repository page. If you have any questions or need further assistance, please don't hesitate to reach out. Happy converting!
