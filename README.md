@@ -41,7 +41,7 @@ The jsonToRfd library follows the following design principles:
 1. Validity: Ensure that the RDF/XML adheres to the RDF specifications and is a valid XML document. Use proper namespace declarations and well-formed XML syntax.
 2. Use namespaces: Utilize namespaces to uniquely identify resources and properties. This helps avoid conflicts and ensures clarity in the RDF data.
 3. Clear subject-predicate-object structure: Represent triples (subject-predicate-object) clearly in the RDF/XML. Use appropriate XML elements and attributes to express this structure.
-4. Reusability: Reuse existing vocabularies (e.g., Dublin Core,BIBO, VCARD) when appropriate, instead of reinventing terms. This enhances interoperability and consistency.
+4. Reusability: Reuse existing vocabularies (e.g., Dublin Core, BIBO, VCARD) when appropriate instead of reinventing terms. This enhances interoperability and consistency.
 5. Avoid deep nesting: Keep the RDF/XML structure simple and avoid excessive nesting of elements. 
 6. Avoid using the about or id attributes in RDF descriptions as they are not part of the official RDF specification. In the global scope, using these attributes can lead to issues as we lack the actual global URL for the about. Conversely, within the local scope, our MEDFORD operates on different bases. Using a local id can hinder interoperability with other RDF datasets and make it confusing for users. It is preferable to adhere to the standard RDF triple structure, which ensures consistency and clarity in RDF data modeling.
 
