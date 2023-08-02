@@ -11,7 +11,7 @@ BIBO=Namespace("http://purl.org/ontology/bibo/")
 DCTERMS = Namespace("http://purl.org/dc/terms/")
 IMS=Namespace("http://www.imsglobal.org/xsd/imsmd_v1p2/")
 VCARD=Namespace("https://www.w3.org/2006/vcard/ns#")
-XSI=Namespace("http://www.w3.org/2001/XMLSchema-instance")
+
 
 
 
@@ -264,7 +264,7 @@ class jsonToRfd:
         ET.register_namespace("dcterms", DCTERMS)
         ET.register_namespace("ims", IMS)
         ET.register_namespace("vcard", VCARD)
-        ET.register_namespace("xsi", XSI)
+    
         
         # Add the xmlns:dc attribute to the root element
         root.set('xmlns:dc', DC)
@@ -275,9 +275,9 @@ class jsonToRfd:
         source_elem = root.find('.//{%s}source' % DCTERMS)
 
         if source_elem is not None:
-            # Change the tag of the dcterms:source element and add the xsi:type attribute
+            # Change the tag of the dcterms:source element
             source_elem.tag = '{%s}source' % DCTERMS
-            source_elem.attrib['{%s}type' % XSI] = 'dcterms:URI'
+            
 
         #else:
             #print('dcterms:source not found in the XML data.')
