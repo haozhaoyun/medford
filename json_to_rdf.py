@@ -1,7 +1,7 @@
-from rdflib import Graph, Literal, Namespace, RDF, RDFS, URIRef,BNode,DC
+from rdflib import Graph, Literal, Namespace, RDF, URIRef,DC
 import json
 import xml.etree.ElementTree as ET
-
+from datetime import datetime, date
 
 #MFTERMS = Namespace("https://mf.cs.tufts.edu/mf/terms/")
 #MF=Namespace("https://mf.cs.tufts.edu/mf/elements/")
@@ -11,7 +11,6 @@ BIBO=Namespace("http://purl.org/ontology/bibo/")
 DCTERMS = Namespace("http://purl.org/dc/terms/")
 IMS=Namespace("http://www.imsglobal.org/xsd/imsmd_v1p2/")
 VCARD=Namespace("https://www.w3.org/2006/vcard/ns#")
-
 
 
 
@@ -33,7 +32,9 @@ class jsonToRfd:
         
         sub=''
         if term=="association":
-            sub=getattr(DCTERMS, "publisher")                       
+            sub=getattr(DCTERMS, "publisher")
+        elif term=="cruiseid":
+            sub=getattr(MFTERMS, "cruiseID")                       
         elif term=="desc":
             if parent==getattr(MF,"date"):
                 sub=getattr(DCTERMS, "date")
@@ -41,6 +42,8 @@ class jsonToRfd:
                 sub=getattr(VCARD, "fn")
             else:
                 sub=getattr(DCTERMS, "title")
+        elif term=="divenumber":
+            sub=getattr(MFTERMS, "diveNumber")
         elif term=="doi":
             sub=getattr(DCTERMS, "identifier")
         elif term=="email":
@@ -55,6 +58,8 @@ class jsonToRfd:
             sub=getattr(DCTERMS, "description")
         elif term=="orcid":
             sub=getattr(DCTERMS, "identifier")
+        elif term=="mooringid":
+            sub=getattr(MFTERMS, "mooringID")
         elif term=="pages":
             sub=getattr(BIBO, "pageStart")
         elif term=="pmid":
@@ -65,6 +70,8 @@ class jsonToRfd:
             sub=getattr(BIBO, "volume")
         elif term=="role":
             sub=getattr(VCARD, "role")
+        elif term=="shipname":
+            sub=getattr(MFTERMS, "shipName")
         elif term=="size":
             sub=getattr(DCTERMS, "extent")
         elif term=="type":
@@ -151,6 +158,8 @@ class jsonToRfd:
         elif second=="copy":
             
             self.G.add((subject_url,MFTERMS["isCopy"], Literal("true")))
+        elif second=="freeform":
+            self.G.add((subject_url,RDF.type, MF["freeform"]))
     # Function to convert nested JSON data to RDF triples in graph
     def json_to_graph(self):
          
@@ -158,7 +167,6 @@ class jsonToRfd:
             subject = None
             
             subject=getattr(MF,key.lower())
-            #print(key.lower())
             self.helper(value, subject,"none")
             
     # helper function for json_to_graph          
@@ -180,9 +188,7 @@ class jsonToRfd:
            
             
             subject_url=psubject+"/"+str(item_id)
-            
-            
-                
+            #print(subject_url)    
             
             predicate,obj=self.add_majorToken_to_graph(mfword,subject_url)
             
@@ -195,7 +201,7 @@ class jsonToRfd:
             for prop, prop_value in item_data.items():
                 
                 length_of_multipro = len(prop_value)
-                #print(length_of_multipro)
+                
                 
                 prop_val=''
                 
@@ -203,7 +209,7 @@ class jsonToRfd:
                 if length_of_multipro>1 and type(prop_value[0][1]) != dict:
                     for i in range(length_of_multipro):
                         #prop_id = prop_value[i][0]
-                        #print(length_of_multipro)
+                       
                         prop_val = prop_val+prop_value[i][1]+", "
                     prop_val=prop_val[:-2]
 
@@ -212,15 +218,27 @@ class jsonToRfd:
                       
                 sub_subject='' 
                 
-                # if the data is 
+                # if the data is value only
                 if type(prop_val) != dict:
                     
                     sub_subject=self.checkSubject(prop,psubject)
-                    
-                    
+                    ###adjust predicates
+                    if"date" in sub_subject:
+                        try:
+                            datetime.strptime(prop_val, "%Y-%m-%d")
+                            dcdate=datetime.strptime(prop_val, "%Y-%m-%d").date()
                             
+                            self.G.add((subject_url, DCTERMS["date"], Literal(dcdate)))
+                        except ValueError:
+                        
+                            try: 
+                                datetime.strptime(prop_val, "%Y-%m-%d %H:%M:%S")
+                                imsdatetime=datetime.strptime(prop_val, "%Y-%m-%d %H:%M:%S")
+                                self.G.add((subject_url, IMS["datetime"], Literal(imsdatetime)))
+                            except ValueError:
+                                self.G.add((subject_url, DCTERMS["date"], Literal(prop_val)))      
                     #retrived pageStart and pageEnd from pages 
-                    if "pageStart" in sub_subject:
+                    elif "pageStart" in sub_subject:
                         start, end = prop_val.split("-")
                         self.G.add((subject_url,BIBO["pageStart"], Literal(start)))
                         self.G.add((subject_url,BIBO["pageEnd"], Literal(end)))
@@ -235,10 +253,11 @@ class jsonToRfd:
                     
                     # when there is a minor token, 
                     # we need to remove the latest added triple first and add it in the next level
-                    #print(subject_url)
                     self.G.remove((subject_url, predicate, obj))
                     temp=list(item_data.keys())[0].lower()
-    
+                    if mfword=="freeform":
+                        psubject=getattr(MF,temp)
+                        temp="freeform"
                     # for the second layer of the minor token or when the value is a list of multiple dictionary values                   
                     self.helper(prop_value,psubject,temp)    
                         
@@ -264,7 +283,7 @@ class jsonToRfd:
         ET.register_namespace("dcterms", DCTERMS)
         ET.register_namespace("ims", IMS)
         ET.register_namespace("vcard", VCARD)
-    
+
         
         # Add the xmlns:dc attribute to the root element
         root.set('xmlns:dc', DC)
@@ -321,7 +340,7 @@ class jsonToRfd:
 def main():
    
     #read JSON data
-    with open('test3.json', 'r') as json_file:
+    with open('../test3.json', 'r') as json_file:
         json_data = json.load(json_file)
     
     # convert json to RFD/XML
@@ -330,7 +349,7 @@ def main():
     rdf_xml_data_bytes=test.graph_to_rdfxml()
     
     # Write the RDF/XML bytes data to file
-    with open('sample.rdf', 'wb') as rdf_file:
+    with open('../sample.rdf', 'wb') as rdf_file:
         rdf_file.write(rdf_xml_data_bytes)
       
    

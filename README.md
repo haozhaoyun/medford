@@ -12,7 +12,7 @@ You can install this library using pip:
 How to Use
 ------------------
 1. Import the jsonToRfd class from the library into your Python script or application.
-2. Read your JSON data from a file.
+2. Read your JSON data from a file or obtain it through any other means.
 3. Create an instance of the jsonToRfd class, passing the MEDFORD JSON data as a parameter.
 Call the json_to_graph() method of the instance to convert the JSON data into RDF triples.
 And call the graph_to_rdfxml() method to serialize the RDF data into RDF/XML format.
