@@ -263,7 +263,7 @@ def test_converter():
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
-   ''' 
+   
 ########################################################################################
     ##### Test for freeform
     json_input = {
@@ -303,4 +303,104 @@ def test_converter():
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
+    '''
+    ########################################################################################
+    ##### Test for Funding
+    
+    json_input = {
+        
+    }
+    expected_rdfxml = """  """
+    converted_rdfxml=convert(json_input)
+    diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
+    assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
+    
+    ########################################################################################
+    ##### Test for Journal
+
+    json_input = {
+        
+    }
+    expected_rdfxml = """  """
+    converted_rdfxml=convert(json_input)
+    diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
+    assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
+    
+    ########################################################################################
+    ##### Test for Keyword
+    
+    json_input = {
+        
+    }
+    expected_rdfxml = """  """
+    converted_rdfxml=convert(json_input)
+    diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
+    assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
+    
+    ########################################################################################
+    ##### Test for MEDFORD
+    
+    json_input = {
+        
+    }
+    expected_rdfxml = """  """
+    converted_rdfxml=convert(json_input)
+    diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
+    assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
+    
+    ########################################################################################
+    ##### Test for Method
+    
+    json_input = {
+        
+    }
+    expected_rdfxml = """  """
+    converted_rdfxml=convert(json_input)
+    diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
+    assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
+    
+    ########################################################################################
+    ##### Test for Paper
+    
+    json_input = {
+        
+    }
+    expected_rdfxml = """  """
+    converted_rdfxml=convert(json_input)
+    diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
+    assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
+    
+    ########################################################################################
+    ##### Test for Project
+    
+    json_input = {
+        
+    }
+    expected_rdfxml = """  """
+    converted_rdfxml=convert(json_input)
+    diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
+    assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
+    
+    ########################################################################################
+    ##### Test for Software
+    
+    json_input = {
+        
+    }
+    expected_rdfxml = """  """
+    converted_rdfxml=convert(json_input)
+    diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
+    assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
+    
+    ########################################################################################
+    ##### Test for Species
+    
+    json_input = {
+        
+    }
+    expected_rdfxml = """  """
+    converted_rdfxml=convert(json_input)
+    diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
+    assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
+    
 test_converter()   
