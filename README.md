@@ -6,8 +6,11 @@ MEDFORD JSON to RDF Converter is a Python script that converts MEDFORD JSON data
 Installing
 ------------------
 To use json2Rfd, you need to have the following Python libraries installed:
+
     rdflib: The library to work with RDF data.
+
 You can install this library using pip:
+
     pip install rdflib
 
 How to Use

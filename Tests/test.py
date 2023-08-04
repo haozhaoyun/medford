@@ -1,6 +1,6 @@
 import sys
 sys.path.append("..")  # Add the parent directory to the Python path
-from json_to_rdf import jsonToRfd
+from json2rdf import jsonToRfd
 import difflib
 
 #####find the difference between the two strings
