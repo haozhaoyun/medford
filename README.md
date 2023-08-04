@@ -29,7 +29,7 @@ To use the JSON to RDF Converter, follow the steps below:
         python json2rdf.py --input input.json --output output.rdf
 
     b. Convert JSON data from stdin to RDF/XML and print the output to the terminal:
-    
+
         python json2rdf.py < input.json
 
 Design Principles
@@ -42,11 +42,11 @@ The jsonToRfd library follows the following design principles:
 5. Avoid deep nesting: Keep the RDF/XML structure simple and avoid excessive nesting of elements. 
 6. Avoid using the “about” or “id” attributes in RDF descriptions due to the local scope of RDF generation and the lack of global identifiers for “about”. Using a local ID is not much better; it can hinder interoperability with other RDF dataset. It is preferable to adhere to the standard RDF triple structure, which ensures consistency and clarity in RDF data modeling, omitting fields that can cause confusion due to the lack of a global space of “about” fields.
 
-This is controversial. If we were to conform to the true “about” standard, we would have to maintain a stateful database that remembers every label we have ever used in an “about”, and avoid using anything twice. The fact that this is stateful means that we would need to generate the rdf on a website rather than in an application, where the website would track the global ids. 
+    This is controversial. If we were to conform to the true “about” standard, we would have to maintain a stateful database that remembers every label we have ever used in an “about”, and avoid using anything twice. The fact that this is stateful means that we would need to generate the rdf on a website rather than in an application, where the website would track the global ids. 
 
-This is much more “expensive” than writing an app. The basic question is whether the expense is worth the trouble. In our case, it doesn’t seem to be. 
+    This is much more “expensive” than writing an app. The basic question is whether the expense is worth the trouble. In our case, it doesn’t seem to be. 
 
-Meanwhile, external opinions are also split on whether an ID should be tracked even though it is a local key that is not universal. Some say it’s useful, others say it’s a waste of space. We have erred on the side of not including IDs, which are not considered useful by a subset of the RDF community. 
+    Meanwhile, external opinions are also split on whether an ID should be tracked even though it is a local key that is not universal. Some say it’s useful, others say it’s a waste of space. We have erred on the side of not including IDs, which are not considered useful by a subset of the RDF community. 
 
 Theory of Operation
 ------------------
