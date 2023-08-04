@@ -310,7 +310,7 @@ def test_converter():
     json_input = {
         
     }
-    expected_rdfxml = """  """
+    expected_rdfxml = """"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
@@ -321,7 +321,7 @@ def test_converter():
     json_input = {
         
     }
-    expected_rdfxml = """  """
+    expected_rdfxml = """"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
@@ -332,7 +332,7 @@ def test_converter():
     json_input = {
         
     }
-    expected_rdfxml = """  """
+    expected_rdfxml = """"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
@@ -343,7 +343,7 @@ def test_converter():
     json_input = {
         
     }
-    expected_rdfxml = """  """
+    expected_rdfxml = """"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
@@ -354,7 +354,7 @@ def test_converter():
     json_input = {
         
     }
-    expected_rdfxml = """  """
+    expected_rdfxml = """"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
@@ -365,7 +365,7 @@ def test_converter():
     json_input = {
         
     }
-    expected_rdfxml = """  """
+    expected_rdfxml = """"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
@@ -376,7 +376,7 @@ def test_converter():
     json_input = {
         
     }
-    expected_rdfxml = """  """
+    expected_rdfxml = """"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
@@ -387,7 +387,7 @@ def test_converter():
     json_input = {
         
     }
-    expected_rdfxml = """  """
+    expected_rdfxml = """"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
@@ -398,7 +398,7 @@ def test_converter():
     json_input = {
         
     }
-    expected_rdfxml = """  """
+    expected_rdfxml = """"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
