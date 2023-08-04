@@ -54,7 +54,7 @@ def convert(json_input):
     
 ##### tests unit function
 def test_converter():
-    '''
+    
     ########################################################################################
     ##### Test for code
     
@@ -303,14 +303,36 @@ def test_converter():
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
-    '''
+    
     ########################################################################################
     ##### Test for Funding
     
     json_input = {
-        
+        "Funding": [
+            [
+                55,
+                {
+                "desc": [
+                    [
+                    55,
+                    "National Science Foundation"
+                    ]
+                ],
+                "ID": [
+                    [
+                    56,
+                    "OCE-1358699"
+                    ]
+                ]
+                }
+            ]
+        ]
     }
-    expected_rdfxml = """"""
+    expected_rdfxml = """  <rdf:Description>
+    <rdf:type rdf:resource="https://www.eecs.tufts.edu/~wlou01/mf/elements/funding" />
+    <dcterms:title>National Science Foundation</dcterms:title>
+    <dcterms:identifier>OCE-1358699</dcterms:identifier>
+  </rdf:Description>"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
@@ -319,9 +341,46 @@ def test_converter():
     ##### Test for Journal
 
     json_input = {
-        
+        "Journal": [
+      [
+            7,
+            {
+            "desc": [
+                [
+                7,
+                "Nature Scientific Reports"
+                ]
+            ],
+            "Volume": [
+                [
+                8,
+                "8"
+                ]
+            ],
+            "Issue": [
+                [
+                9,
+                "1"
+                ]
+            ],
+            "Pages": [
+                [
+                10,
+                "1-10"
+                ]
+            ]
+            }
+        ]
+        ]
     }
-    expected_rdfxml = """"""
+    expected_rdfxml = """  <rdf:Description>
+    <dcterms:type>text</dcterms:type>
+    <dcterms:title>Nature Scientific Reports</dcterms:title>
+    <bibo:volume>8</bibo:volume>
+    <bibo:issue>1</bibo:issue>
+    <bibo:pageStart>1</bibo:pageStart>
+    <bibo:pageEnd>10</bibo:pageEnd>
+  </rdf:Description>"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
