@@ -97,7 +97,7 @@ def test_converter():
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)   
   
-    assert converted_rdfxml == expected_rdfxml,diff
+    assert converted_rdfxml == expected_rdfxml,"\n".join(diff)
   
     ########################################################################################
     ##### Test for contributor
@@ -186,7 +186,7 @@ def test_converter():
   </rdf:Description>"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
-    assert converted_rdfxml == expected_rdfxml, diff
+    assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
     
     
     
@@ -389,9 +389,24 @@ def test_converter():
     ##### Test for Keyword
     
     json_input = {
+         "Keyword": [
+            [
+                59,
+                {
+                "desc": [
+                    [
+                    59,
+                    "Coral"
+                    ]
+                ]
+                }
+            ]
+         ]
         
     }
-    expected_rdfxml = """"""
+    expected_rdfxml = """  <dc:subject>
+    <dcterms:title>Coral</dcterms:title>
+  </dc:subject>"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
@@ -400,9 +415,32 @@ def test_converter():
     ##### Test for MEDFORD
     
     json_input = {
+        "MEDFORD": [
+            [
+                1,
+                {
+                "desc": [
+                    [
+                    1,
+                    "description"
+                    ]
+                ],
+                "Version": [
+                    [
+                    2,
+                    "1.0"
+                    ]
+                ]
+                }
+            ]
+        ]
         
     }
-    expected_rdfxml = """"""
+    expected_rdfxml = """  <rdf:Description>
+    <rdf:type rdf:resource="https://www.eecs.tufts.edu/~wlou01/mf/elements/medford" />
+    <dcterms:title>description</dcterms:title>
+    <dcterms:hasVersion>1.0</dcterms:hasVersion>
+  </rdf:Description>"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
@@ -411,9 +449,32 @@ def test_converter():
     ##### Test for Method
     
     json_input = {
+        "Method": [
+            [
+                73,
+                {
+                "desc": [
+                    [
+                    73,
+                    "Qiagen DNAeasy Midi kit"
+                    ]
+                ],
+                "Type": [
+                    [
+                    74,
+                    "DNA extraction"
+                    ]
+                ]
+                }
+            ]
+        ]
         
     }
-    expected_rdfxml = """"""
+    expected_rdfxml = """  <rdf:Description>
+    <rdf:type rdf:resource="https://www.eecs.tufts.edu/~wlou01/mf/elements/method" />
+    <dcterms:title>Qiagen DNAeasy Midi kit</dcterms:title>
+    <dcterms:type>DNA extraction</dcterms:type>
+  </rdf:Description>"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)
@@ -422,9 +483,40 @@ def test_converter():
     ##### Test for Paper
     
     json_input = {
+        "Paper": [
+            [
+                5,
+                {
+                    "Primary": [
+                    [
+                        5,
+                        {
+                        "desc": [
+                            [
+                            5,
+                            "MEDFORD: A human and machine readable markup language to facilitate FAIR coral metadata"
+                            ]
+                        ],
+                        "Note": [
+                            [
+                            6,
+                            "A paper describing the implementation of the MEDFORD file format, which has a parser that can take a provided MEDFORD file and additional arbitrary files and put them into a bag. A MEDFORD file can also be translated into other formats, such as the BCODMO submission format."
+                            ]
+                        ]
+                        }
+                    ]
+                    ]
+                }
+            ]
+        ]
         
     }
-    expected_rdfxml = """"""
+    expected_rdfxml = """  <rdf:Description>
+    <dcterms:type>text</dcterms:type>
+    <mfterms:isPrimary>true</mfterms:isPrimary>
+    <dcterms:title>MEDFORD: A human and machine readable markup language to facilitate FAIR coral metadata</dcterms:title>
+    <dcterms:description>A paper describing the implementation of the MEDFORD file format, which has a parser that can take a provided MEDFORD file and additional arbitrary files and put them into a bag. A MEDFORD file can also be translated into other formats, such as the BCODMO submission format.</dcterms:description>
+  </rdf:Description>"""
     converted_rdfxml=convert(json_input)
     diff=find_string_diff(expected_rdfxml,converted_rdfxml)  
     assert converted_rdfxml == expected_rdfxml, "\n".join(diff)

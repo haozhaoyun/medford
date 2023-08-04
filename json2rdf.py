@@ -2,7 +2,9 @@ from rdflib import Graph, Literal, Namespace, RDF, URIRef,DC
 import json
 import xml.etree.ElementTree as ET
 from datetime import datetime, date
-
+import argparse
+import sys
+sys.path.append("..")
 #MFTERMS = Namespace("https://mf.cs.tufts.edu/mf/terms/")
 #MF=Namespace("https://mf.cs.tufts.edu/mf/elements/")
 MFTERMS = Namespace("https://www.eecs.tufts.edu/~wlou01/mf/terms/")
@@ -331,6 +333,7 @@ class jsonToRfd:
             
         # Convert the modified XML tree back to as bytes
         rdf_xml_data_bytes = ET.tostring(root)
+        
         return rdf_xml_data_bytes
 
 
@@ -339,18 +342,33 @@ class jsonToRfd:
 
 def main():
    
-    #read JSON data
-    with open('../test3.json', 'r') as json_file:
-        json_data = json.load(json_file)
-    
-    # convert json to RFD/XML
-    test=jsonToRfd(json_data)
-    test.json_to_graph( )
-    rdf_xml_data_bytes=test.graph_to_rdfxml()
-    
-    # Write the RDF/XML bytes data to file
-    with open('../sample.rdf', 'wb') as rdf_file:
-        rdf_file.write(rdf_xml_data_bytes)
+    parser = argparse.ArgumentParser(description="Convert MEDFORD JSON data to RDF/XML format")
+    parser.add_argument("--input", help="Path to the input JSON file (default stdin)")
+    parser.add_argument("--output", help="Path to the output RDF/XML file (default stdout)")
+    args = parser.parse_args()
+
+    if args.input:
+        # Read JSON data from the specified input file
+        with open(args.input, 'r') as json_file:
+            json_data = json.load(json_file)
+    else:
+        # Read JSON data from stdin if --input is not provided
+        json_data = json.load(sys.stdin)
+
+    # Convert json to RDF/XML
+    test = jsonToRfd(json_data)
+    test.json_to_graph()
+    rdf_xml_data_bytes = test.graph_to_rdfxml()
+
+    if args.output:
+        # Write the RDF/XML data to the specified output file
+        with open(args.output, 'wb') as rdf_file:
+            rdf_file.write(rdf_xml_data_bytes)
+    else:
+        # Write the RDF/XML data to stdout if --output is not provided
+        # Convert bytes data to a string and remove the last newline character
+        rdf_xml_data_str = rdf_xml_data_bytes.decode('utf-8').rstrip('\n')
+        print(rdf_xml_data_str)
       
    
               

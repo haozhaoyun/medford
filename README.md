@@ -1,39 +1,29 @@
+# MEDFORD JSON TO RDF Converter json2RFD
 Introduction
 ------------------
-jsonToRfd is a Python library that converts MEDFORD JSON data into RDF/XML format using the rdflib library. It provides a simple way to transform MEDFORD JSON-based metadata into RDF triples, making it easier to work with Linked Data and semantic web applications.
+MEDFORD JSON to RDF Converter is a Python script that converts MEDFORD JSON data to RDF/XML format using the rdflib library. It provides a simple way to transform MEDFORD JSON-based metadata into RDF triples, making it easier to work with Linked Data and semantic web applications.
 
 Installing
 ------------------
-To use jsonToRfd, you need to have the following Python libraries installed:
+To use json2Rfd, you need to have the following Python libraries installed:
     rdflib: The library to work with RDF data.
 You can install this library using pip:
     pip install rdflib
 
 How to Use
 ------------------
-1. Import the jsonToRfd class from the library into your Python script or application.
-2. Read your JSON data from a file or obtain it through any other means.
-3. Create an instance of the jsonToRfd class, passing the MEDFORD JSON data as a parameter.
-Call the json_to_graph() method of the instance to convert the JSON data into RDF triples.
-And call the graph_to_rdfxml() method to serialize the RDF data into RDF/XML format.
-4. Save the RDF/XML data to a file or use it as needed in your application.
+To use the JSON to RDF Converter, follow the steps below:
 
-Here is a basic example:
-
-    from json_to_rdf import jsonToRfd
-
-    # Read JSON data from a file or any other source
-    with open('data.json', 'r') as json_file:
-        json_data = json.load(json_file)
-
-    # Convert JSON data to RDF/XML
-    converter = jsonToRfd(json_data)
-    converter.json_to_graph()
-    rdf_xml_data_bytes = converter.graph_to_rdfxml()
-
-    # Save the RDF/XML data to a file
-    with open('output.rdf', 'wb') as rdf_file:
-        rdf_file.write(rdf_xml_data_bytes)
+1. Prepare your JSON data: Create or obtain the JSON data that you want to convert to RDF.
+2. Run the script: Execute the "json2rdf.py" script from the command line, providing the appropriate parameters.
+3. Command-line Arguments
+    --input: Path to the input JSON file. If not provided, the script will read JSON data from stdin.
+    --output: Path to the output RDF/XML file. If not provided, the script will write the output to stdout.
+4. Example
+    a. Convert JSON data from "input.json" to RDF/XML and save it to "output.rdf":
+        python json2rdf.py --input input.json --output output.rdf
+    b. Convert JSON data from stdin to RDF/XML and print the output to the terminal:
+        python json2rdf.py < input.json
 
 Design Principles
 ------------------
@@ -43,7 +33,13 @@ The jsonToRfd library follows the following design principles:
 3. Clear subject-predicate-object structure: Represent triples (subject-predicate-object) clearly in the RDF/XML. Use appropriate XML elements and attributes to express this structure.
 4. Reusability: Reuse existing vocabularies (e.g., Dublin Core, BIBO, VCARD) when appropriate instead of reinventing terms. This enhances interoperability and consistency.
 5. Avoid deep nesting: Keep the RDF/XML structure simple and avoid excessive nesting of elements. 
-6. Avoid using the about or id attributes in RDF descriptions as they are not part of the official RDF specification. In the global scope, using these attributes can lead to issues as we lack the actual global URL for the about. Conversely, within the local scope, our MEDFORD operates on different bases. Using a local ID can hinder interoperability with other RDF datasets and make it confusing for users. It is preferable to adhere to the standard RDF triple structure, which ensures consistency and clarity in RDF data modeling.
+6. Avoid using the “about” or “id” attributes in RDF descriptions due to the local scope of RDF generation and the lack of global identifiers for “about”. Using a local ID is not much better; it can hinder interoperability with other RDF dataset. It is preferable to adhere to the standard RDF triple structure, which ensures consistency and clarity in RDF data modeling, omitting fields that can cause confusion due to the lack of a global space of “about” fields.
+
+This is controversial. If we were to conform to the true “about” standard, we would have to maintain a stateful database that remembers every label we have ever used in an “about”, and avoid using anything twice. The fact that this is stateful means that we would need to generate the rdf on a website rather than in an application, where the website would track the global ids. 
+
+This is much more “expensive” than writing an app. The basic question is whether the expense is worth the trouble. In our case, it doesn’t seem to be. 
+
+Meanwhile, external opinions are also split on whether an ID should be tracked even though it is a local key that is not universal. Some say it’s useful, others say it’s a waste of space. We have erred on the side of not including IDs, which are not considered useful by a subset of the RDF community. 
 
 Theory of Operation
 ------------------
