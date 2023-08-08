@@ -1,11 +1,11 @@
-# MEDFORD JSON TO RDF Converter json2RFD
+# MEDFORD JSON TO RDF Converter json2rdf
 Introduction
 ------------------
 MEDFORD JSON to RDF Converter is a Python script that converts MEDFORD JSON data to RDF/XML format using the rdflib library. It provides a simple way to transform MEDFORD JSON-based metadata into RDF triples, making it easier to work with Linked Data and semantic web applications.
 
 Installing
 ------------------
-To use json2Rfd, you need to have the following Python libraries installed:
+To use json2rdf, you need to have the following Python libraries installed:
 
     rdflib: The library to work with RDF data.
 
@@ -37,7 +37,7 @@ To use the JSON to RDF Converter, follow the steps below:
 
 Design Principles
 ------------------
-The jsonToRfd library follows the following design principles:
+The json2rdf library follows the following design principles:
 1. Validity: Ensure that the RDF/XML adheres to the RDF specifications and is a valid XML document. Use proper namespace declarations and well-formed XML syntax.
 2. Use namespaces: Utilize namespaces to uniquely identify resources and properties. This helps avoid conflicts and ensures clarity in the RDF data.
 3. Clear subject-predicate-object structure: Represent triples (subject-predicate-object) clearly in the RDF/XML. Use appropriate XML elements and attributes to express this structure.
@@ -78,3 +78,4 @@ DublinCore RDF/XML examples: https://www.dublincore.org/specifications/dublin-co
 Qualified DC: https://www.dublincore.org/specifications/dublin-core/dcq-rdf-xml/
 
 Feel free to contribute to the project by submitting issues or pull requests on the repository page. If you have any questions or need further assistance, please don't hesitate to reach out. Happy converting!
+
