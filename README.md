@@ -29,7 +29,7 @@ To use the JSON to RDF Converter, follow the steps below:
 
     a. Convert JSON data from "input.json" to RDF/XML and save it to "output.rdf":
 
-        python json2rdf.py --input input.json --output output.rdf
+        python3 json2rdf.py --input input.json --output output.rdf
 
     b. Convert JSON data from stdin to RDF/XML and print the output to the terminal:
 
