@@ -1,9 +1,11 @@
 from rdflib import Graph, Literal, Namespace, RDF, URIRef,DC
 import json
 import xml.etree.ElementTree as ET
-from datetime import datetime, date
+from datetime import datetime
 import argparse
 import sys
+
+
 sys.path.append("..")
 #MFTERMS = Namespace("https://mf.cs.tufts.edu/mf/terms/")
 #MF=Namespace("https://mf.cs.tufts.edu/mf/elements/")
@@ -14,6 +16,9 @@ DCTERMS = Namespace("http://purl.org/dc/terms/")
 IMS=Namespace("http://www.imsglobal.org/xsd/imsmd_v1p2/")
 VCARD=Namespace("https://www.w3.org/2006/vcard/ns#")
 
+import json
+
+
 
 
 class jsonToRfd:
@@ -21,12 +26,8 @@ class jsonToRfd:
     def __init__(self, json_data):
        self.json_data=json_data
        self.G=Graph()
-    def is_valid_json(data):
-        try:
-            json.loads(data)
-            return True
-        except ValueError:
-            return False  
+   
+   
         
     #mapping MEDFORD tags
     def checkSubject(self,prop,parent):    
@@ -81,7 +82,7 @@ class jsonToRfd:
                 sub=getattr(DCTERMS, "subject")
             elif "data" in parent:
                 sub=DCTERMS['format']
-            elif parent==getattr(MFTERMS, "software"):
+            elif "software" in parent:
                 sub=DCTERMS['format']
             else:
                 sub=getattr(DCTERMS, "type")
@@ -98,6 +99,7 @@ class jsonToRfd:
     # add dc properties for all undecided mf terms
         predicate=''
         obj=''
+        #print(mfword)
         if mfword=="code":
             self.G.add((subject_url,RDF.type, MF["code"]))
             predicate=RDF.type
@@ -138,6 +140,10 @@ class jsonToRfd:
             self.G.add((subject_url,DCTERMS.type, Literal("text")))
             predicate=DCTERMS.type
             obj=Literal("text")
+        elif mfword=="project":
+            self.G.add((subject_url,RDF.type, MF["project"]))
+            predicate=RDF.type
+            obj=Literal("project")
         elif mfword=="species":
             self.G.add((subject_url,RDF.type, MF["species"]))
             predicate=RDF.type
@@ -162,9 +168,13 @@ class jsonToRfd:
             self.G.add((subject_url,MFTERMS["isCopy"], Literal("true")))
         elif second=="freeform":
             self.G.add((subject_url,RDF.type, MF["freeform"]))
+    
+
     # Function to convert nested JSON data to RDF triples in graph
     def json_to_graph(self):
          
+            
+        ##Read the json data 
         for key, value in self.json_data.items():
             subject = None
             
@@ -176,14 +186,18 @@ class jsonToRfd:
            
         mfword=''    
         #get the mf terms from the resource
-        for word in ["code","data","expedition","file","freeform","funding","journal","medford","method", "paper","software","species"]:
+        for word in ["code","data","expedition","file","freeform","funding","journal","medford","method", "paper","project","software","species"]:
             if word in psubject:
                 #print("word:"+word)
                 mfword=word
                                
             
         for item in value:
+            
             #id
+            if not isinstance(item[0],int):
+                print("Invalid BEDFORD JSON format.")
+                sys.exit(1)
             item_id = item[0]
             #item
             item_data = item[1]
@@ -211,11 +225,16 @@ class jsonToRfd:
                 if length_of_multipro>1 and type(prop_value[0][1]) != dict:
                     for i in range(length_of_multipro):
                         #prop_id = prop_value[i][0]
-                       
+                        if not isinstance(prop_value[i][0],int):
+                            print("Invalid BEDFORD JSON format.")
+                            sys.exit(1)
                         prop_val = prop_val+prop_value[i][1]+", "
                     prop_val=prop_val[:-2]
 
                 else:
+                    if not isinstance(prop_value[0][0],int):
+                            print("Invalid BEDFORD JSON format.")
+                            sys.exit(1)
                     prop_val=prop_value[0][1]
                       
                 sub_subject='' 
