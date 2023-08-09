@@ -18,7 +18,7 @@ How to Use
 To use the JSON to RDF Converter, follow the steps below:
 
 1. Prepare your JSON data: Create or obtain the JSON data that you want to convert to RDF.
-2. Run the script: Execute the "json2rdf.py" script from the command line, providing the appropriate parameters.
+2. Run the script: Execute the "converter.py" script from the command line, providing the appropriate parameters.
 3. Command-line Arguments
 
     --input: Path to the input JSON file. If not provided, the script will read JSON data from stdin.
@@ -29,11 +29,11 @@ To use the JSON to RDF Converter, follow the steps below:
 
     a. Convert JSON data from "input.json" to RDF/XML and save it to "output.rdf":
 
-        python3 json2rdf.py --input input.json --output output.rdf
+        python3 converter.py --input input.json --output output.rdf
 
     b. Convert JSON data from stdin to RDF/XML and print the output to the terminal:
 
-        python3 json2rdf.py < input.json
+        python3 converter.py < input.json
 
 Design Principles
 ------------------
