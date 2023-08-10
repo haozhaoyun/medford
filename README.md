@@ -17,15 +17,16 @@ How to Use
 ------------------
 To use the JSON to RDF Converter, follow the steps below:
 
-1. Prepare your JSON data: Create or obtain the JSON data that you want to convert to RDF.
-2. Run the script: Execute the "converter.py" script from the command line, providing the appropriate parameters.
-3. Command-line Arguments
+1. Clone the repository to your local machine.
+2. Prepare your JSON data: Create or obtain the JSON data that you want to convert to RDF.
+3. Run the script: Execute the "converter.py" script from the command line, providing the appropriate parameters.
+4. Command-line Arguments
 
-    --input: Path to the input JSON file. If not provided, the script will read JSON data from stdin.
+    --input: Path to the input JSON file (default is stdin). 
 
-    --output: Path to the output RDF/XML file. If not provided, the script will write the output to stdout.
+    --output: Path to the output RDF/XML file (default is stdout).
 
-4. Example
+5. Example
 
     a. Convert JSON data from "input.json" to RDF/XML and save it to "output.rdf":
 
@@ -53,7 +54,7 @@ The json2rdf library follows the following design principles:
 
 Theory of Operation
 ------------------
-The jsonToRfd library works by traversing the MEDFORD JSON data recursively and mapping JSON properties to appropriate RDF terms using predefined namespaces. It identifies major tokens, such as "code," "data," "journal," etc., and creates RDF triples accordingly. It also handles minor tokens, such as "ref," "primary," and "copy," to provide additional information about the triples.
+The json2Rdf library works by traversing the MEDFORD JSON data recursively and mapping JSON properties to appropriate RDF terms using predefined namespaces. It identifies major tokens, such as "code," "data," "journal," etc., and creates RDF triples accordingly. It also handles minor tokens, such as "ref," "primary," and "copy," to provide additional information about the triples.
 
 The library follows a two-step process:
 

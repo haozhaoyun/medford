@@ -1,2 +1,2 @@
-Python 3.x
-rdflib
+python>=3.6
+rdflib>=6.0.0
